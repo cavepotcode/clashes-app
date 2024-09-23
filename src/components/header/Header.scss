@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  height: 60px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 10px 0;
+  .nav-items {
+    padding: 0 32px;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    li {
+      display: inline;
+      padding-right: 5rem;
+      a {
+        font-family: Montserrat;
+        font-size: 1rem;
+        font-weight: 500;
+        color: black;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .logo {
+    height: 37px;
+    margin-left: 20px;
+  }
+}
