@@ -1,0 +1,25 @@
+.description {
+  text-align: center;
+  padding: 50px 20px;
+  h2 {
+    font-family: Montserrat;
+    font-weight: 500;
+    max-width: 60%;
+  }
+}
+
+.card {
+  max-width: 300px;
+  :nth-child(n) {
+    font-family: Montserrat;
+    text-align: center;
+  }
+  .icon {
+    height: 50px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+}
