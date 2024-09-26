@@ -1,41 +1,23 @@
-.container {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    .home-content {
-        display: flex;
-        justify-content: space-around;
-        align-items: flex-start;
-    }
-}
-
-.cornered-section {
-  position: relative;
-  padding: 100px 50px;
-  z-index: -1;
-  overflow: hidden;
-}
-
-/* Esquina superior derecha */
+//Esquina superior derecha
 .cornered-section::before {
   content: "";
   position: absolute;
   top: 0;
   right: 0;
-  width: 50%;
-  height: 50%;
+  width: 45%;
+  height: 60%;
   background-color: #16e8e1;
   clip-path: polygon(0 0, 100% 100%, 100% 0);
   z-index: -1;
 }
 
-/* Esquina inferior izquierda */
+//Esquina inferior izquierda
 .cornered-section::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 50%;
+  width: 40%;
   height: 50%;
   background-color: black;
   clip-path: polygon(0 0, 100% 100%, 0 100%);
