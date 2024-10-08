@@ -5,6 +5,7 @@ import avatar from "../../assets/profile/avatar.jpg";
 import { useEffect, useState } from "react";
 import { HeaderLinks } from "./HeaderLinks";
 import { UserLinks } from "./UserLinks";
+import { useAuthStore } from "../../hooks";
 
 interface HeaderProps {
   setBlur: (blur: boolean) => void;
@@ -14,6 +15,8 @@ interface HeaderProps {
 export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const {user} = useAuthStore();
+  console.log(user)
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -55,7 +58,7 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
               onClick={toggleUserMenu}
               className="flex items-center focus:outline-none"
             >
-              <span className="mr-2 font-medium">ollita7@gmail.com</span>
+              <span className="mr-2">{user ? user.email : ''}</span>
               <img
                 src={avatar}
                 alt="Avatar"
