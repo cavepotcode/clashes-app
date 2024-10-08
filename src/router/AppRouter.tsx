@@ -20,8 +20,7 @@ export const AppRouter = () => {
         <div
           className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-[#16E8E1] motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
           role="status"
-        >
-        </div>
+        ></div>
       </div>
     );
   }
@@ -32,7 +31,7 @@ export const AppRouter = () => {
         path="/"
         element={
           <>
-            <Header setBlur={setIsBlurred} />
+            <Header setBlur={setIsBlurred} rightContentType="navigation" />
             <main
               className={
                 isBlurred
@@ -52,8 +51,24 @@ export const AppRouter = () => {
         </>
       ) : (
         <>
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/*" element={<Navigate to="/admin" />} />
+          <Route
+            path="/admin"
+            element={
+              <>
+                <Header setBlur={setIsBlurred} rightContentType="userMenu" />
+                <main
+                  className={
+                    isBlurred
+                      ? "backdrop-blur-md backdrop-brightness-150 bg-white/80 transition-all duration-300"
+                      : "transition-all duration-300"
+                  }
+                >
+                  <AdminDashboard />
+                </main>
+              </>
+            }
+          />
+            <Route path="/*" element={<Navigate to="/admin" />} />
         </>
       )}
     </Routes>
