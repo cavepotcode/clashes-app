@@ -34,7 +34,7 @@ export const useAuthStore = () => {
       });
       const { data } = response.data;
       localStorage.setItem("token", data.token);
-      dispatch(onLogin({ name: data.name, role: data.role }));
+      dispatch(onLogin({ name: data.name, role: data.role, tenant_id: data.tenant_id, email: data.email }));
     } catch (error) {
       if (error instanceof Error) {
         dispatch(onLogout(error.message || "Credenciales incorrectas"));
