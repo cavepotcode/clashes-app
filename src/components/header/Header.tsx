@@ -15,8 +15,7 @@ interface HeaderProps {
 export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const {user} = useAuthStore();
-  console.log(user)
+  const { user } = useAuthStore();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -58,7 +57,7 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
               onClick={toggleUserMenu}
               className="flex items-center focus:outline-none"
             >
-              <span className="mr-2">{user ? user.email : ''}</span>
+              <span className="mr-2">{user ? user.email : ""}</span>
               <img
                 src={avatar}
                 alt="Avatar"
@@ -85,10 +84,14 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
   };
 
   return (
-    <header className="header backdrop-blur-md mx-auto items-center justify-between z-10 fixed mt-2 my-2 flex-wrap">
-      <div className="logo">
+    <header
+      className={`header backdrop-blur-md mx-auto items-center justify-between z-10 fixed flex-wrap ${
+        rightContentType === "userMenu" ? "bg-white" : ""
+      }`}
+    >
+      <div className="logo ml-6">
         <a href={rightContentType === "userMenu" ? "/admin" : "/"}>
-          <img src={logo} alt="Logo clashes" className="w-36 sm:w-52" />
+          <img src={logo} alt="Logo clashes" className="w-36" />
         </a>
       </div>
       <nav className="flex flex-[1] items-center justify-end overflow-hidden">

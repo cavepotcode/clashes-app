@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { LoginPage } from "../pages/login/LoginPage";
 import { AdminDashboard } from "../pages/admin/AdminDashboard";
 import { Home } from "../pages/Home";
-import { Header } from "../components/header/Header";
+import { Header, Sidebar } from "../components";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../hooks/useAuthStore";
 
@@ -56,6 +56,8 @@ export const AppRouter = () => {
             element={
               <>
                 <Header setBlur={setIsBlurred} rightContentType="userMenu" />
+                <div className="flex h-screen  w-screen overflow-hidden">
+                <Sidebar /> 
                 <main
                   className={
                     isBlurred
@@ -65,6 +67,7 @@ export const AppRouter = () => {
                 >
                   <AdminDashboard />
                 </main>
+                </div>
               </>
             }
           />
