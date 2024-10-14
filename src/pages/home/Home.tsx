@@ -1,10 +1,10 @@
-import { HomeDescription } from "../components/home/HomeDescription";
-import { Card } from "../components/home/Card";
-import { PhoneScreens } from "../components/home/second-section/PhoneScreens";
-import { StartText } from "../components/home/second-section/StartText";
-import lock from "../assets/cards_icons/lock.png";
-import network from "../assets/cards_icons/network.png";
-import paint_brush from "../assets/cards_icons/paint-brush.png";
+import { HomeDescription } from "../../components/home/HomeDescription";
+import { Card } from "../../components/home/Card";
+import { PhoneScreens } from "../../components/home/second-section/PhoneScreens";
+import { StartText } from "../../components/home/second-section/StartText";
+import lock from "../../assets/cards_icons/lock.png";
+import network from "../../assets/cards_icons/network.png";
+import paint_brush from "../../assets/cards_icons/paint-brush.png";
 
 import "./Home.scss";
 

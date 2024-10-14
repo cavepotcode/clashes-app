@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { HeaderLinks } from "./HeaderLinks";
 import { UserLinks } from "./UserLinks";
 import { useAuthStore } from "../../hooks";
+import { SidebarLinks } from "../sidebar/SidebarLinks";
 
 interface HeaderProps {
   setBlur: (blur: boolean) => void;
@@ -78,7 +79,12 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
     }
 
     if (rightContentType === "userMenu") {
-      return <UserLinks />;
+      return (
+        <>
+          <UserLinks />
+          <SidebarLinks linkColor="black" isBurgerMenu={true}/>
+        </>
+      );
     }
     return null;
   };
@@ -108,7 +114,7 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
         </div>
       </nav>
       {isOpen && (
-        <div className="flex basis-full font-semibold flex-col items-center justify-center bg-white py-4 w-full absolute top-full rounded-b-2xl divide-y-[20px] divide-transparent shadow-lg">
+        <div className="flex basis-full font-semibold flex-col items-center justify-center bg-white py-4 w-full absolute top-full rounded-b-2xl gap-8 shadow-lg">
           {responsiveMenu()}
         </div>
       )}
