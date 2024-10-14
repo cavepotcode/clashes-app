@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { LoginPage } from "../pages/login/LoginPage";
 import { AdminDashboard } from "../pages/admin/AdminDashboard";
-import { Home } from "../pages/Home";
+import { Home } from "../pages/home/Home";
 import { Header, Sidebar } from "../components";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../hooks/useAuthStore";
