@@ -7,6 +7,7 @@ import { HeaderLinks } from "./HeaderLinks";
 import { UserLinks } from "./UserLinks";
 import { useAuthStore } from "../../hooks";
 import { SidebarLinks } from "../sidebar/SidebarLinks";
+import { TenantList } from "..";
 
 interface HeaderProps {
   setBlur: (blur: boolean) => void;
@@ -52,17 +53,18 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
 
     if (rightContentType === "userMenu") {
       return (
-        <div className="hidden md:flex items-center">
-          <div className="relative">
+        <div className="hidden md:flex items-center divide-x-[20px] divide-transparent">
+          <TenantList />
+          <div>
             <button
               onClick={toggleUserMenu}
               className="flex items-center focus:outline-none"
             >
-              <span className="mr-2">{user ? user.email : ""}</span>
+              <span className="mr-2 text-gray-500">{user ? user.email : ""}</span>
               <img
                 src={avatar}
                 alt="Avatar"
-                className="w-14 h-14 rounded-full mr-5 border-2 border-[#44ebe5]"
+                className="w-14 z-10 h-14 rounded-full mr-5 border-2 border-[#44ebe5]"
               />
             </button>
           </div>
@@ -81,8 +83,9 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
     if (rightContentType === "userMenu") {
       return (
         <>
+          <TenantList />
           <UserLinks />
-          <SidebarLinks linkColor="black" isBurgerMenu={true}/>
+          <SidebarLinks linkColor="black" isBurgerMenu={true} />
         </>
       );
     }
@@ -103,7 +106,7 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
       <nav className="flex flex-[1] items-center justify-end overflow-hidden">
         {rightContent()}
         {isUserMenuOpen && rightContentType === "userMenu" && (
-          <div className="absolute basis-full divide-y-8 divide-transparent flex flex-wrap items-end flex-col mt-36 mr-10 z-[-1] p-4 rounded-xl bg-white shadow-lg ring-1 ring-[#44ebe5] focus:outline-none">
+          <div className="absolute basis-full divide-y-8 divide-transparent flex flex-wrap items-end flex-col mt-32 mr-10 p-4 rounded-xl bg-white shadow-lg ring-1 ring-[#44ebe5] focus:outline-none">
             <UserLinks />
           </div>
         )}

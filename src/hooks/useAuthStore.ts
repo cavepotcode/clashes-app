@@ -30,11 +30,11 @@ export const useAuthStore = () => {
     try {
       const response = await clashesApi.post("/user/login", {
         username,
-        password,
+        password
       });
       const { data } = response.data;
       localStorage.setItem("token", data.token);
-      dispatch(onLogin({ name: data.name, role: data.role, tenant_id: data.tenant_id, email: data.email }));
+      dispatch(onLogin({ name: data.user.name, role: data.user.role, email: data.user.email }));
     } catch (error) {
       if (error instanceof Error) {
         dispatch(onLogout(error.message || "Credenciales incorrectas"));
@@ -56,8 +56,9 @@ export const useAuthStore = () => {
     }
     try {
       const resp = await clashesApi.get("/user/profile"); //podriamos meter un endpoint de renew
-      const { name, role } = resp.data;
-      dispatch(onLogin({ name, role }));
+      const { data } = resp.data;
+      console.log('coso',resp.data)
+      dispatch(onLogin({ name: data.name, email: data.email, role: data.role }));
     } catch (error) {
       localStorage.clear();
       dispatch(onLogout(""));
