@@ -31,6 +31,10 @@ export const TenantList = () => {
     setIsOpen(!isOpen);
   };
 
+  if (!tenants || !Array.isArray(tenants)) {
+    return <p>No hay tenants disponibles</p>;
+  }
+
   return (
     <div className="relative">
       {tenants.length === 1 ? (
