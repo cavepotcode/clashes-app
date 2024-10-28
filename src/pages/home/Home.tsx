@@ -11,9 +11,9 @@ import "./Home.scss";
 export const Home = () => {
   return (
     <>
-      <div className="cornered-section relative py-20 px-12 overflow-hidden">
+      <div className="relative py-20 px-12 overflow-hidden md:cornered-section">
         <HomeDescription />
-        <div className="container mx-auto flex justify-end">
+        <div className="container  flex justify-end">
           <div className="home-content flex flex-wrap justify-around items-start gap-8">
             <Card
               icon={<img className="paint-brush" src={paint_brush}></img>}
