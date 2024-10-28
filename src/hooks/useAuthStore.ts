@@ -57,7 +57,6 @@ export const useAuthStore = () => {
     try {
       const resp = await clashesApi.get("/user/profile"); //podriamos meter un endpoint de renew
       const { data } = resp.data;
-      console.log('coso',resp.data)
       dispatch(onLogin({ name: data.name, email: data.email, role: data.role }));
     } catch (error) {
       localStorage.clear();
