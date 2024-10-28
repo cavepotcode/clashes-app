@@ -1,16 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Tenant } from "../../types";
 
 interface TenantsState {
   tenants: Tenant[];
   isLoading: boolean;
   errorMessage?: string;
+  selectedTenant?: Tenant;
 }
 
 const initialState: TenantsState = {
   tenants: [],
   isLoading: false,
   errorMessage: undefined,
+  selectedTenant: undefined,
 };
 
 export const tenantsSlice = createSlice({
@@ -28,7 +30,10 @@ export const tenantsSlice = createSlice({
       state.isLoading = false;
       state.errorMessage = payload;
     },
+    setSelectedTenant: (state, action: PayloadAction<Tenant>) => {
+      state.selectedTenant = action.payload;
+    },
   },
 });
 
-export const { startLoadingTenants, setTenants, setTenantsError } = tenantsSlice.actions;
+export const { startLoadingTenants, setTenants, setTenantsError, setSelectedTenant } = tenantsSlice.actions;

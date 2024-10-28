@@ -4,7 +4,7 @@ import { AdminDashboard } from "../pages/admin/AdminDashboard";
 import { Home } from "../pages/home/Home";
 import { Header, Sidebar } from "../components";
 import { useEffect, useState } from "react";
-import { useAuthStore } from "../hooks/useAuthStore";
+import { useAuthStore } from "../hooks";
 
 export const AppRouter = () => {
   const [isBlurred, setIsBlurred] = useState(false);
@@ -56,22 +56,22 @@ export const AppRouter = () => {
             element={
               <>
                 <Header setBlur={setIsBlurred} rightContentType="userMenu" />
-                <div className="flex h-screen  w-screen overflow-hidden">
-                <Sidebar /> 
-                <main
-                  className={
-                    isBlurred
-                      ? "backdrop-blur-md backdrop-brightness-150 bg-white/80 transition-all duration-300"
-                      : "transition-all duration-300"
-                  }
-                >
-                  <AdminDashboard />
-                </main>
+                <div className="flex h-screen w-screen overflow-hidden">
+                  <Sidebar />
+                  <main
+                    className={
+                      isBlurred
+                        ? "backdrop-blur-md backdrop-brightness-150 bg-white/80 transition-all duration-300 h-full flex-1"
+                        : "transition-all duration-300 mt-14 h-full flex-1 overflow-auto"
+                    }
+                  >
+                    <AdminDashboard />
+                  </main>
                 </div>
               </>
             }
           />
-            <Route path="/*" element={<Navigate to="/admin" />} />
+          <Route path="/*" element={<Navigate to="/admin" />} />
         </>
       )}
     </Routes>

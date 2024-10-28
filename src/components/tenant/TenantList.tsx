@@ -2,19 +2,25 @@ import { useEffect, useState } from "react";
 import { useTenantsStore } from "../../hooks/useTenantsStore";
 import { Tenant } from "../../types";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { AppDispatch, RootState, setSelectedTenant } from "../../store";
 import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
 
 export const TenantList = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedTenant, setSelectedTenant] = useState<Tenant | null>(null);
+  const { selectedTenant } = useSelector((state: RootState) => state.tenants);
   const { tenants, getTenants, errorMessage } = useTenantsStore();
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    if (tenants.length === 1) {
-      setSelectedTenant(tenants[0]);
-    }
     getTenants();
   }, []);
+
+  useEffect(() => {
+    if (tenants.length && !selectedTenant) {
+      dispatch(setSelectedTenant(tenants[0]))
+    }
+  }, [tenants])
 
   useEffect(() => {
     if (errorMessage) {
@@ -23,7 +29,7 @@ export const TenantList = () => {
   }, [errorMessage]);
 
   const handleTenantSelect = (tenant: Tenant) => {
-    setSelectedTenant(tenant);
+    dispatch(setSelectedTenant(tenant));
     setIsOpen(false);
   };
 
@@ -64,8 +70,9 @@ export const TenantList = () => {
               onClick={() => handleTenantSelect(tenant)}
             >
               <div className="flex flex-col">
-                <span className="capitalize font-semibold text-gray-800">{tenant.name}</span>
-                <span className="lowercase text-gray-600">{tenant.status}</span>
+                <span className="capitalize font-semibold text-gray-800">
+                  {tenant.name}
+                </span>
               </div>
             </li>
           ))}
