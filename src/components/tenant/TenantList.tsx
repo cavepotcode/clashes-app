@@ -48,7 +48,7 @@ export const TenantList = () => {
       ) : (
         <div
           onClick={toggleDropdown}
-          className="cursor-pointer text-gray-900 flex items-center hover:text-teal-500 transition-colors"
+          className="cursor-pointer text-gray-900 flex items-center hover:text-[#37d7e3] transition-colors"
         >
           <span className="mr-2 capitalize font-semibold">
             {selectedTenant ? selectedTenant.name : tenants[0]?.name}
@@ -62,7 +62,7 @@ export const TenantList = () => {
       )}
 
       {isOpen && tenants.length > 1 && (
-        <ul className="fixed z-10 mt-2 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-y-auto w-full md:w-48">
+        <ul className="fixed z-10 mt-2 bg-white border border-[#37d7e3] rounded-md shadow-lg max-h-60 overflow-y-auto w-full md:w-48">
           {tenants.map((tenant) => (
             <li
               key={tenant._id}

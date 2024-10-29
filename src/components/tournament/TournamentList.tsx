@@ -42,7 +42,7 @@ export const TournamentList = () => {
           <p className="text-gray-600 mb-4">{tournament.description}</p>
           <button
             onClick={() => toggleCategories(tournament.id)}
-            className="bg-teal-500 text-white py-1 px-3 rounded hover:bg-teal-600 transition"
+            className="bg-black text-white font-medium py-1 px-3 rounded hover:bg-[#37d7e3] transition"
           >
             {expandedTournament === tournament.id ? "Ocultar categorías" : "Ver categorías"}
           </button>

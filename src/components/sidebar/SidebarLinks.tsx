@@ -1,7 +1,7 @@
-import { FaTrophy, FaFileAlt, FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle } from "react-icons/fa";
 import { FaRankingStar } from "react-icons/fa6";
 import { TbBrandCitymapper } from "react-icons/tb";
-import { IoSettingsSharp } from "react-icons/io5";
+import { IoDocumentsOutline, IoSettingsSharp, IoTrophyOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, setSelectedPage } from "../../store";
 
@@ -24,9 +24,9 @@ export const SidebarLinks = ({
   const getLinkClass = (page: string) => {
     const linkClass = isBurgerMenu
       ? "flex hover:font-semibold gap-2"
-      : `flex items-center space-x-3 py-2 ${linkColor} hover:border-b-2 hover:border-${linkColor} w-full`;
+      : `flex items-center space-x-3 py-2 ${linkColor} hover:border-b-2 w-full hover:border-[#37d7e3] hover:text-[#37d7e3]`;
     
-    const activeClass = selectedPage === page ? `border-b-2 hover:border-${linkColor} w-full` : "";
+    const activeClass = selectedPage === page ? `border-b-2 border-[#37d7e3] text-[#37d7e3] w-full` : "";
     
     return `${linkClass} ${activeClass}`;
   };
@@ -35,7 +35,7 @@ export const SidebarLinks = ({
       className={`flex flex-col space-y-5 text-${linkColor} font-medium items-start md:text-lg`}
     >
       <a href="#" className={getLinkClass("tournaments")} onClick={() => handlePageSelect("tournaments")}>
-        <FaTrophy fontSize="2em" />
+        <IoTrophyOutline fontSize="2em" />
         <span className={linkColor}>Torneos</span>
       </a>
       <a href="#" className={getLinkClass("stages")}>
@@ -51,7 +51,7 @@ export const SidebarLinks = ({
         <span className={linkColor}>Configuración</span>
       </a>
       <a href="#" className={getLinkClass("documentation")}>
-        <FaFileAlt fontSize="2em" />
+        <IoDocumentsOutline fontSize="2em" />
         <span className={linkColor}>Documentación</span>
       </a>
       <a href="#" className={getLinkClass("users")}>
