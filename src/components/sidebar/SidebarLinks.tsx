@@ -46,7 +46,7 @@ export const SidebarLinks = ({
         <FaRankingStar fontSize="2em" />
         <span className={linkColor}>Ranking</span>
       </a>
-      <a href="#" className={getLinkClass("settings")}>
+      <a href="#" className={getLinkClass("settings")} onClick={() => handlePageSelect("settings")}>
         <IoSettingsSharp fontSize="2em" />
         <span className={linkColor}>Configuración</span>
       </a>

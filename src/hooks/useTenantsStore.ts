@@ -5,8 +5,9 @@ import {
   setTenantsError,
   RootState,
   AppDispatch,
+  addTenant,
 } from "../store";
-import { Tenant } from "../types";
+import { Tenant, TenantData } from "../types";
 import { clashesApi } from "../api";
 
 export const useTenantsStore = () => {
@@ -34,10 +35,24 @@ export const useTenantsStore = () => {
     }
   };
 
+  const createTenant = async (tenantData: TenantData) => {
+    try {
+      const response = await clashesApi.post("/tenant", tenantData);
+      dispatch(addTenant(response.data.data));
+    } catch (error) {
+      if (error instanceof Error) {
+        dispatch(setTenantsError(error.message));
+      } else {
+        dispatch(setTenantsError("Error al crear el tenant"));
+      }
+    }
+  };
+
   return {
     tenants,
     isLoading,
     errorMessage,
     getTenants,
+    createTenant
   };
 };
