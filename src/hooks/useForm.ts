@@ -63,6 +63,7 @@ export const useForm = <T extends Record<string, any>>(
     formState,
     onInputChange,
     onResetForm,
+    setFormState,
 
     ...formValidation,
     isFormValid,

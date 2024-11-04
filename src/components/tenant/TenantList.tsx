@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useTenantsStore } from "../../hooks/useTenantsStore";
+import { useTenantsStore } from "../../hooks";
 import { Tenant } from "../../types";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { AppDispatch, RootState, setSelectedTenant } from "../../store";

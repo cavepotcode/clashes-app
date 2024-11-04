@@ -33,7 +33,16 @@ export const tenantsSlice = createSlice({
     setSelectedTenant: (state, action: PayloadAction<Tenant>) => {
       state.selectedTenant = action.payload;
     },
+    addTenant: (state, action: PayloadAction<Tenant>) => {
+      state.tenants.push(action.payload);
+    },
   },
 });
 
-export const { startLoadingTenants, setTenants, setTenantsError, setSelectedTenant } = tenantsSlice.actions;
+export const {
+  startLoadingTenants,
+  setTenants,
+  setTenantsError,
+  setSelectedTenant,
+  addTenant
+} = tenantsSlice.actions;
