@@ -13,8 +13,8 @@ export const Home = () => {
     <>
       <div className="relative py-20 px-12 overflow-hidden md:cornered-section">
         <HomeDescription />
-        <div className="container  flex justify-end">
-          <div className="home-content flex flex-wrap justify-around items-start gap-8">
+        <div className="container flex justify-evenly">
+          <div className="home-content flex flex-wrap justify-around items-start gap-8 md:gap-32">
             <Card
               icon={<img className="paint-brush" src={paint_brush}></img>}
               title="Customizable"
