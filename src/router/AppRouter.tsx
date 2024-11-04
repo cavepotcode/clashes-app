@@ -56,13 +56,13 @@ export const AppRouter = () => {
             element={
               <>
                 <Header setBlur={setIsBlurred} rightContentType="userMenu" />
-                <div className="flex h-screen w-screen overflow-hidden">
+                <div className="flex h-screen min-h-[calc(100vh-60px)] w-screen overflow-auto">
                   <Sidebar />
                   <main
                     className={
                       isBlurred
                         ? "backdrop-blur-md backdrop-brightness-150 bg-white/80 transition-all duration-300 h-full flex-1"
-                        : "transition-all duration-300 mt-14 h-full flex-1 overflow-auto"
+                        : "transition-all duration-300 mt-14 flex-1 overflow-auto"
                     }
                   >
                     <AdminDashboard />
