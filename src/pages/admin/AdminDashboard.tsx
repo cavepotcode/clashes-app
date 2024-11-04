@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { TournamentList } from "../../components";
+import { CreateTenantForm, TournamentList } from "../../components";
 import { RootState } from "../../store";
 
 export const AdminDashboard = () => {
@@ -8,8 +8,9 @@ export const AdminDashboard = () => {
   );
 
   return (
-    <div className="flex flex-1 w-full h-full p-4">
+    <div className="flex flex-1 w-full min-h-[calc(100vh-60px)] p-4 overflow-auto">
       {selectedPage === "tournaments" && <TournamentList />}
+      {selectedPage === "settings" && <CreateTenantForm />}
     </div>
   );
 };
