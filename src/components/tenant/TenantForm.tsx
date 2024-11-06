@@ -12,7 +12,7 @@ const tenantFormFields: TenantData = {
   theme: {
     background: "#ffffff",
     card: "#ffffff",
-    matchesBackground: "#ffffff",
+    'matches-background': "#ffffff",
     details: "#000000",
     title: "#000000",
     menu: "#ffffff",
@@ -40,7 +40,7 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
   const fieldThemeNames = {
     background: "background",
     card: "card",
-    matchesBackground: "matches background",
+    'matches-background': "matches background",
     details: "details",
     title: "title",
     menu: "menu",
