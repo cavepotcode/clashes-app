@@ -2,9 +2,15 @@ import { useEffect, useState } from "react";
 import { useTenantsStore } from "../../hooks";
 import { Tenant } from "../../types";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { AppDispatch, RootState, setSelectedTenant } from "../../store";
+import {
+  AppDispatch,
+  RootState,
+  setSelectedPage,
+  setSelectedTenant,
+} from "../../store";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
+import { FaEdit } from "react-icons/fa";
 
 export const TenantList = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,15 +24,21 @@ export const TenantList = () => {
 
   useEffect(() => {
     if (tenants.length && !selectedTenant) {
-      dispatch(setSelectedTenant(tenants[0]))
+      dispatch(setSelectedTenant(tenants[0]));
     }
-  }, [tenants])
+  }, [tenants]);
 
   useEffect(() => {
     if (errorMessage) {
       Swal.fire("Error al cargar los tenants", errorMessage, "error");
     }
   }, [errorMessage]);
+
+  const handleEditTenant = (tenant: Tenant) => {
+    dispatch(setSelectedTenant(tenant));
+    dispatch(setSelectedPage("edit"));
+    setIsOpen(false);
+  };
 
   const handleTenantSelect = (tenant: Tenant) => {
     dispatch(setSelectedTenant(tenant));
@@ -62,11 +74,11 @@ export const TenantList = () => {
       )}
 
       {isOpen && tenants.length > 1 && (
-        <ul className="fixed z-10 mt-2 bg-white border border-[#37d7e3] rounded-md shadow-lg max-h-60 overflow-y-auto w-full md:w-48">
+        <ul className="md:fixed absolute flex flex-col z-10 mt-2 bg-white border border-[#37d7e3] rounded-md shadow-lg max-h-60 overflow-y-auto w-full w-auto">
           {tenants.map((tenant) => (
             <li
               key={tenant._id}
-              className="p-2 hover:bg-[#1de7e0]/30 cursor-pointer transition-colors"
+              className="p-2 hover:bg-[#1de7e0]/30 cursor-pointer transition-colors flex items-center justify-between"
               onClick={() => handleTenantSelect(tenant)}
             >
               <div className="flex flex-col">
@@ -74,6 +86,10 @@ export const TenantList = () => {
                   {tenant.name}
                 </span>
               </div>
+              <FaEdit
+                onClick={() => handleEditTenant(tenant)}
+                className="ml-3 text-gray-500 hover:text-black cursor-pointer"
+              />
             </li>
           ))}
         </ul>
