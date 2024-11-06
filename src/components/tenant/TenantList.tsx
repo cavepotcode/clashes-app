@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTenantsStore } from "../../hooks";
 import { Tenant } from "../../types";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { IoIosAdd, IoMdArrowDropdown } from "react-icons/io";
 import {
   AppDispatch,
   RootState,
@@ -11,12 +11,14 @@ import {
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { FaEdit } from "react-icons/fa";
+import { useAuthStore } from '../../hooks';
 
 export const TenantList = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { selectedTenant } = useSelector((state: RootState) => state.tenants);
   const { tenants, getTenants, errorMessage } = useTenantsStore();
   const dispatch: AppDispatch = useDispatch();
+  const { user } = useAuthStore();
 
   useEffect(() => {
     getTenants();
@@ -36,12 +38,17 @@ export const TenantList = () => {
 
   const handleEditTenant = (tenant: Tenant) => {
     dispatch(setSelectedTenant(tenant));
-    dispatch(setSelectedPage("edit"));
+    dispatch(setSelectedPage("settings"));
     setIsOpen(false);
   };
 
   const handleTenantSelect = (tenant: Tenant) => {
     dispatch(setSelectedTenant(tenant));
+    setIsOpen(false);
+  };
+
+  const handleNewTenant = () => {
+    dispatch(setSelectedPage("createTenant"));
     setIsOpen(false);
   };
 
@@ -92,6 +99,15 @@ export const TenantList = () => {
               />
             </li>
           ))}
+          {user?.role === "super_admin" && (
+            <li
+              onClick={() => handleNewTenant()}
+              className="py-2 px-3 hover:bg-[#1de7e0]/30 cursor-pointer transition-colors flex items-center justify-between border-t-2"
+            >
+              <IoIosAdd className="text-black cursor-pointer size-5 mr-2" />
+              <span className="capitalize text-black">Nuevo Tenant</span>
+            </li>
+          )}
         </ul>
       )}
     </div>
