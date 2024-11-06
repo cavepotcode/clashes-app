@@ -7,7 +7,7 @@ export interface Tenant {
   theme: {
     background: string;
     card: string;
-    matchesBackground: string;
+    'matches-background': string;
     details: string;
     title: string;
     menu: string;
