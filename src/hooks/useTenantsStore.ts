@@ -6,6 +6,8 @@ import {
   RootState,
   AppDispatch,
   addTenant,
+  editTenant,
+  setSelectedPage,
 } from "../store";
 import { Tenant, TenantData } from "../types";
 import { clashesApi } from "../api";
@@ -48,11 +50,26 @@ export const useTenantsStore = () => {
     }
   };
 
+  const updateTenant = async (id: string, updatedData: Partial<Tenant>) => {
+    try {
+      const response = await clashesApi.put(`/tenant/${id}`, updatedData);
+      dispatch(editTenant(response.data.data));
+      dispatch(setSelectedPage("tournaments"));
+    } catch (error) {
+      if (error instanceof Error) {
+        dispatch(setTenantsError(error.message));
+      } else {
+        dispatch(setTenantsError("Error al actualizar el tenant"));
+      }
+    }
+  };
+
   return {
     tenants,
     isLoading,
     errorMessage,
     getTenants,
-    createTenant
+    createTenant,
+    updateTenant,
   };
 };

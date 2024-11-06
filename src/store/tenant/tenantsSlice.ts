@@ -36,6 +36,15 @@ export const tenantsSlice = createSlice({
     addTenant: (state, action: PayloadAction<Tenant>) => {
       state.tenants.push(action.payload);
     },
+    editTenant: (state, action: PayloadAction<Tenant>) => {
+      const updatedTenant = action.payload;
+      const index = state.tenants.findIndex(
+        (tenant) => tenant._id === updatedTenant._id
+      );
+      if (index !== -1) {
+        state.tenants[index] = updatedTenant;
+      }
+    },
   },
 });
 
@@ -44,5 +53,6 @@ export const {
   setTenants,
   setTenantsError,
   setSelectedTenant,
-  addTenant
+  addTenant,
+  editTenant,
 } = tenantsSlice.actions;

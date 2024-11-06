@@ -2,11 +2,6 @@ export interface Tenant {
   _id: string;
   name: string;
   status: string;
-}
-
-export interface TenantData {
-  name: string;
-  status: string;
   terms: string;
   ranking: boolean;
   theme: {
@@ -22,3 +17,5 @@ export interface TenantData {
     text: string;
   };
 }
+
+export type TenantData = Omit<Tenant, "_id">;

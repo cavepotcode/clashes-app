@@ -1,7 +1,7 @@
 import { FC, FormEvent, useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { useForm, useTenantsStore } from "../../hooks";
-import { TenantData } from "../../types";
+import { Tenant, TenantData } from "../../types";
 import Swal from "sweetalert2";
 
 const tenantFormFields: TenantData = {
@@ -23,13 +23,19 @@ const tenantFormFields: TenantData = {
   },
 };
 
-export const CreateTenantForm: FC = () => {
-  const { createTenant, errorMessage } = useTenantsStore();
+interface TenantFormProps {
+  tenantToEdit?: Tenant;
+}
+
+export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
+  const { createTenant, updateTenant, errorMessage } = useTenantsStore();
   const [activeColorPicker, setActiveColorPicker] = useState<
     keyof TenantData["theme"] | null
   >(null);
+
+  const initialFormState = tenantToEdit || tenantFormFields;
   const { formState, onInputChange, onResetForm, isFormValid, setFormState } =
-    useForm(tenantFormFields);
+    useForm(initialFormState);
 
   const fieldThemeNames = {
     background: "background",
@@ -54,6 +60,10 @@ export const CreateTenantForm: FC = () => {
     }
   }, [errorMessage]);
 
+  useEffect(() => {
+    if (tenantToEdit) setFormState(tenantToEdit);
+  }, [tenantToEdit]);
+
   const handleColorChange = (color: string, key: keyof TenantData["theme"]) => {
     setFormState({
       ...formState,
@@ -75,12 +85,28 @@ export const CreateTenantForm: FC = () => {
     e.preventDefault();
     if (!isFormValid) return;
 
-    await createTenant(formState);
-    Swal.fire({
-      icon: "success",
-      title: "¡Tenant creado!",
-      text: "El tenant se ha creado exitosamente.",
-    });
+    if (tenantToEdit) {
+      const updatedTenantData: Partial<TenantData> = {
+        name: formState.name,
+        status: formState.status,
+        terms: formState.terms,
+        ranking: formState.ranking,
+        theme: formState.theme,
+      };
+      await updateTenant(tenantToEdit._id, updatedTenantData);
+      Swal.fire({
+        icon: "success",
+        title: "¡Tenant actualizado!",
+        text: "El tenant se ha actualizado exitosamente.",
+      });
+    } else {
+      await createTenant(formState);
+      Swal.fire({
+        icon: "success",
+        title: "¡Tenant creado!",
+        text: "El tenant se ha creado exitosamente.",
+      });
+    }
     onResetForm();
   };
 
@@ -90,7 +116,9 @@ export const CreateTenantForm: FC = () => {
         onSubmit={onSubmit}
         className="flex flex-col p-4 bg-white shadow-md rounded-md mx-2"
       >
-        <h2 className="text-lg font-semibold mb-4">Crear Nuevo Tenant</h2>
+        <h2 className="text-lg font-semibold mb-4">
+          {tenantToEdit ? "Editar Tenant" : "Crear Nuevo Tenant"}
+        </h2>
 
         <div className="mb-2">
           <label className="block text-sm font-medium mb-1">
@@ -176,7 +204,7 @@ export const CreateTenantForm: FC = () => {
           className="mt-4 h-fit w-fit bg-black text-white p-2 rounded hover:hover:bg-[#37d7e3]"
           disabled={!isFormValid}
         >
-          Crear Tenant
+          {tenantToEdit ? "Guardar cambios" : "Crear Tenant"}
         </button>
       </form>
     </div>
