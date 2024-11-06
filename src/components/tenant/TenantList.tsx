@@ -74,7 +74,7 @@ export const TenantList = () => {
       )}
 
       {isOpen && tenants.length > 1 && (
-        <ul className="md:fixed absolute flex flex-col z-10 mt-2 bg-white border border-[#37d7e3] rounded-md shadow-lg max-h-60 overflow-y-auto w-full w-auto">
+        <ul className="md:fixed absolute flex flex-col z-10 mt-2 bg-white border border-[#37d7e3] rounded-md shadow-lg max-h-60 overflow-y-auto md:w-auto">
           {tenants.map((tenant) => (
             <li
               key={tenant._id}
