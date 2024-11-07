@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTenantsStore } from "../../hooks";
 import { Tenant } from "../../types";
 import { IoIosAdd, IoMdArrowDropdown } from "react-icons/io";
@@ -19,6 +19,7 @@ export const TenantList = () => {
   const { tenants, getTenants, errorMessage } = useTenantsStore();
   const dispatch: AppDispatch = useDispatch();
   const { user } = useAuthStore();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     getTenants();
@@ -35,6 +36,20 @@ export const TenantList = () => {
       Swal.fire("Error al cargar los tenants", errorMessage, "error");
     }
   }, [errorMessage]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
 
   const handleEditTenant = (tenant: Tenant) => {
     dispatch(setSelectedTenant(tenant));
@@ -61,7 +76,7 @@ export const TenantList = () => {
   }
 
   return (
-    <div className="relative">
+    <div ref={dropdownRef} className="relative">
       {tenants.length === 1 ? (
         <span className="text-gray-700 font-medium">{tenants[0].name}</span>
       ) : (
@@ -81,7 +96,7 @@ export const TenantList = () => {
       )}
 
       {isOpen && tenants.length > 1 && (
-        <ul className="md:fixed absolute flex flex-col z-10 mt-2 bg-white border border-[#37d7e3] rounded-md shadow-lg max-h-60 overflow-y-auto md:w-auto">
+        <ul className="md:fixed absolute flex flex-col z-10 mt-2 bg-white border border-[#37d7e3] rounded-md shadow-lg max-h-60 overflow-y-auto scrollbar-thin md:w-auto">
           {tenants.map((tenant) => (
             <li
               key={tenant._id}
@@ -102,7 +117,7 @@ export const TenantList = () => {
           {user?.role === "super_admin" && (
             <li
               onClick={() => handleNewTenant()}
-              className="py-2 px-3 hover:bg-[#1de7e0]/30 cursor-pointer transition-colors flex items-center justify-between border-t-2"
+              className="py-2 px-3 hover:bg-[#1de7e0] cursor-pointer transition-colors flex items-center justify-between border-t-2 sticky bottom-0 bg-white"
             >
               <IoIosAdd className="text-black cursor-pointer size-5 mr-2" />
               <span className="capitalize text-black">Nuevo Tenant</span>

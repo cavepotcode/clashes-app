@@ -38,11 +38,11 @@ export const SidebarLinks = ({
         <IoTrophyOutline fontSize="2em" />
         <span className={linkColor}>Torneos</span>
       </a>
-      <a href="#" className={getLinkClass("stages")}>
+      <a href="#" className={`${getLinkClass("stages")} opacity-50 pointer-events-none`}>
         <TbBrandCitymapper fontSize="2em" />
         <span className={linkColor}>Etapas</span>
       </a>
-      <a href="#" className={getLinkClass("ranking")}>
+      <a href="#" className={`${getLinkClass("ranking")} opacity-50 pointer-events-none`}>
         <FaRankingStar fontSize="2em" />
         <span className={linkColor}>Ranking</span>
       </a>
@@ -50,11 +50,11 @@ export const SidebarLinks = ({
         <IoSettingsSharp fontSize="2em" />
         <span className={linkColor}>Configuración</span>
       </a>
-      <a href="#" className={getLinkClass("documentation")}>
+      <a href="#" className={`${getLinkClass("documentation")} opacity-50 pointer-events-none`}>
         <IoDocumentsOutline fontSize="2em" />
         <span className={linkColor}>Documentación</span>
       </a>
-      <a href="#" className={getLinkClass("users")}>
+      <a href="#" className={`${getLinkClass("users")} opacity-50 pointer-events-none`}>
         <FaRegUserCircle fontSize="2em" />
         <span className={linkColor}>Usuarios</span>
       </a>
