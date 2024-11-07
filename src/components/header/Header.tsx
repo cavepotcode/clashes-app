@@ -2,7 +2,7 @@ import "./Header.scss";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "../../assets/logo.png";
 import avatar from "../../assets/profile/avatar.jpg";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HeaderLinks } from "./HeaderLinks";
 import { UserLinks } from "./UserLinks";
 import { useAuthStore } from "../../hooks";
@@ -18,6 +18,8 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { user } = useAuthStore();
+  const userMenuRef = useRef<HTMLDivElement>(null);
+  const avatarRef = useRef<HTMLButtonElement>(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -42,6 +44,24 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
     };
   }, [setBlur]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node) &&
+        avatarRef.current &&
+        !avatarRef.current.contains(event.target as Node)
+      ) {
+        setIsUserMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const rightContent = () => {
     if (rightContentType === "navigation") {
       return (
@@ -58,9 +78,12 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
           <div>
             <button
               onClick={toggleUserMenu}
+              ref={avatarRef}
               className="flex items-center focus:outline-none"
             >
-              <span className="mr-2 text-gray-500">{user ? user.email : ""}</span>
+              <span className="mr-2 text-gray-500">
+                {user ? user.email : ""}
+              </span>
               <img
                 src={avatar}
                 alt="Avatar"
@@ -106,7 +129,7 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
       <nav className="flex flex-[1] items-center justify-end overflow-hidden">
         {rightContent()}
         {isUserMenuOpen && rightContentType === "userMenu" && (
-          <div className="absolute basis-full divide-y-8 divide-transparent flex flex-wrap items-end flex-col mt-32 mr-10 p-4 rounded-xl bg-white shadow-lg ring-1 ring-[#44ebe5] focus:outline-none">
+          <div ref={userMenuRef} className="absolute basis-full divide-y-8 divide-transparent flex flex-wrap items-end flex-col mt-32 mr-10 p-4 rounded-xl bg-white shadow-lg ring-1 ring-[#44ebe5] focus:outline-none">
             <UserLinks />
           </div>
         )}
