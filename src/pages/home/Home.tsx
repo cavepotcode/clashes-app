@@ -11,10 +11,10 @@ import "./Home.scss";
 export const Home = () => {
   return (
     <>
-      <div className="relative py-20 px-12 overflow-hidden md:cornered-section">
+      <div className="relative py-24 px-12 overflow-hidden bg-[#f3f6fa] flex justify-center flex-wrap w-screen">
         <HomeDescription />
-        <div className="container flex justify-evenly">
-          <div className="home-content flex flex-wrap justify-around items-start gap-8 md:gap-32">
+        <div className="container flex justify-around">
+          <div className="home-content flex flex-wrap justify-around gap-7 md:gap-14">
             <Card
               icon={<img className="paint-brush" src={paint_brush}></img>}
               title="Customizable"
