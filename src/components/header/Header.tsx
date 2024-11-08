@@ -17,6 +17,7 @@ interface HeaderProps {
 export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { user } = useAuthStore();
   const userMenuRef = useRef<HTMLDivElement>(null);
   const avatarRef = useRef<HTMLButtonElement>(null);
@@ -115,11 +116,24 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
     return null;
   };
 
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <header
-      className={`header backdrop-blur-md mx-auto items-center justify-between z-10 fixed flex-wrap ${
-        rightContentType === "userMenu" ? "bg-white drop-shadow-sm" : ""
-      }`}
+      className={`header backdrop-blur-md mx-auto items-center justify-between z-10 fixed flex-wrap ${isScrolled ? "bg-transparent" : "bg-white"}`}
     >
       <div className="logo ml-6">
         <a href={rightContentType === "userMenu" ? "/admin" : "/"}>
@@ -129,7 +143,10 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
       <nav className="flex flex-[1] items-center justify-end overflow-hidden">
         {rightContent()}
         {isUserMenuOpen && rightContentType === "userMenu" && (
-          <div ref={userMenuRef} className="absolute basis-full divide-y-8 divide-transparent flex flex-wrap items-end flex-col mt-32 mr-10 p-4 rounded-xl bg-white shadow-lg ring-1 ring-[#44ebe5] focus:outline-none">
+          <div
+            ref={userMenuRef}
+            className="absolute basis-full divide-y-8 divide-transparent flex flex-wrap items-end flex-col mt-32 mr-10 p-4 rounded-xl bg-white shadow-lg ring-1 ring-[#44ebe5] focus:outline-none"
+          >
             <UserLinks />
           </div>
         )}
