@@ -32,10 +32,14 @@ export const Home = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8">
+        <section className="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-8 md:p-8 mt-10 w-full">
+          <StartText />
+          <PhoneScreens />
+        </section>
+        {/* <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 p-8 md:space-x-8">
           <PhoneScreens />
           <StartText />
-        </div>
+        </div> */}
       </div>
     </>
   );
