@@ -133,7 +133,7 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
 
   return (
     <header
-      className={`header backdrop-blur-md mx-auto items-center justify-between z-10 fixed flex-wrap ${isScrolled ? "bg-transparent" : "bg-white"}`}
+      className={`header backdrop-blur-md mx-auto items-center justify-between z-20 fixed flex-wrap ${isScrolled ? "bg-transparent" : "bg-white"}`}
     >
       <div className="logo ml-6">
         <a href={rightContentType === "userMenu" ? "/admin" : "/"}>
