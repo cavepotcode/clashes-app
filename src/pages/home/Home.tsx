@@ -5,15 +5,14 @@ import { StartText } from "../../components/home/second-section/StartText";
 import lock from "../../assets/cards_icons/lock.png";
 import network from "../../assets/cards_icons/network.png";
 import paint_brush from "../../assets/cards_icons/paint-brush.png";
-
-import "./Home.scss";
+import { MembershipSection } from "../../components/home/third-section/MembershipSection";
 
 export const Home = () => {
   return (
     <>
-      <div className="relative py-24 px-12 overflow-hidden bg-[#f3f6fa] flex justify-center flex-wrap w-screen">
+      <div className="relative py-24 md:px-12 px-5 overflow-hidden bg-[#f3f6fa] flex justify-center flex-wrap w-screen">
         <HomeDescription />
-        <div className="container flex justify-around">
+        <div className="flex justify-around">
           <div className="home-content flex flex-wrap justify-around gap-7 md:gap-14">
             <Card
               icon={<img className="paint-brush" src={paint_brush}></img>}
@@ -32,15 +31,12 @@ export const Home = () => {
             />
           </div>
         </div>
-        <section className="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-8 md:p-8 mt-10 w-full">
+        <section className="relative flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-8 md:p-8 mt-10 w-full">
           <StartText />
           <PhoneScreens />
         </section>
-        {/* <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 p-8 md:space-x-8">
-          <PhoneScreens />
-          <StartText />
-        </div> */}
       </div>
+      <MembershipSection />
     </>
   );
 };

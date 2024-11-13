@@ -1,6 +1,6 @@
 export const StartText = () => {
   return (
-    <div className="md:absolute flex flex-col md:flex-row md:bg-gray-50 md:p-10 md:rounded-lg md:shadow-md space-y-6 md:space-y-0 md:space-x-8 md:w-1/2 md:-translate-y-full">
+    <div className="md:absolute flex flex-col md:flex-row md:bg-gray-50 md:p-10 md:pr-32 md:rounded-lg md:shadow-md space-y-6 md:space-y-0 md:space-x-8 md:w-3/5 md:-translate-y-full z-10">
       <div className="text-center mr-2">
         <p className="text-lg font-medium mb-4">
           ¡Esta aplicación ha cambiado completamente la forma en que gestiono
@@ -12,7 +12,7 @@ export const StartText = () => {
           organizar un torneo, de cualquier disciplina!
         </p>
 
-        <div className="relative mt-6 flex flex-col md:flex-row justify-center md:space-x-8 z-10">
+        <div className="sticky mt-6 flex flex-col md:flex-row justify-center md:space-x-8">
           <button className="bg-[#1de6df] text-black font-semibold py-2 px-4 rounded-md hover:bg-teal-500">
             Casos de éxito
           </button>
