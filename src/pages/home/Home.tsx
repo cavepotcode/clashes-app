@@ -9,8 +9,8 @@ import { MembershipSection } from "../../components/home/third-section/Membershi
 
 export const Home = () => {
   return (
-    <>
-      <div className="relative py-24 md:px-12 px-5 overflow-hidden bg-[#f3f6fa] flex justify-center flex-wrap w-screen">
+    <div className="relative overflow-hidden">
+      <div className="py-24 md:px-12 px-5 overflow-hidden bg-[#f3f6fa] flex justify-center flex-wrap w-screen">
         <HomeDescription />
         <div className="flex justify-around">
           <div className="home-content flex flex-wrap justify-around gap-7 md:gap-14">
@@ -37,6 +37,6 @@ export const Home = () => {
         </section>
       </div>
       <MembershipSection />
-    </>
+    </div>
   );
 };

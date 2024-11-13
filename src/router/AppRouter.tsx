@@ -5,6 +5,7 @@ import { Home } from "../pages/home/Home";
 import { Header, Sidebar } from "../components";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../hooks";
+import { Footer } from "../components/footer/Footer";
 
 export const AppRouter = () => {
   const [isBlurred, setIsBlurred] = useState(false);
@@ -30,18 +31,20 @@ export const AppRouter = () => {
       <Route
         path="/"
         element={
-          <>
+          
+          <div className="h-screen">
             <Header setBlur={setIsBlurred} rightContentType="navigation" />
             <main
-              className={
-                isBlurred
+              className={`
+                ${isBlurred
                   ? "blur-sm transition-all duration-300"
-                  : "transition-all duration-300"
-              }
+                  : "transition-all duration-300"} mb-auto
+              `}
             >
               <Home />
             </main>
-          </>
+            <Footer/>
+          </div>
         }
       />
       {status === "not-authenticated" ? (

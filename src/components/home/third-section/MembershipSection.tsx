@@ -23,7 +23,7 @@ export const MembershipSection = () => {
           className="w-1/4 transform -translate-y-32"
         />
       </div>
-      <section className="absolute bg-black py-12 px-8 md:px-24 z-10 w-full">
+      <section className="relative bg-black py-12 px-8 md:px-24 z-10 w-full">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center md:space-x-8 text-white">
           <div className="w-full md:w-1/3 mb-8 md:mb-0 text-center md:text-left">
             <h2 className="text-2xl font-semibold mb-2">
