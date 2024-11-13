@@ -18,6 +18,7 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isInMembership, setIsInMembership] = useState(false);
   const { user } = useAuthStore();
   const userMenuRef = useRef<HTMLDivElement>(null);
   const avatarRef = useRef<HTMLButtonElement>(null);
@@ -61,6 +62,17 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
+  }, []);
+
+  useEffect(() => {
+    const membershipSection = document.querySelector("#membership-section");
+    if (!membershipSection) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInMembership(entry.isIntersecting),
+    );
+    observer.observe(membershipSection);
+    return () => observer.disconnect();
   }, []);
 
   const rightContent = () => {
@@ -132,8 +144,12 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
   }, []);
 
   return (
-    <header
-      className={`header backdrop-blur-md mx-auto items-center justify-between z-20 fixed flex-wrap ${isScrolled ? "bg-transparent" : "bg-white"}`}
+    <header 
+      className={`header backdrop-blur-md mx-auto items-center justify-between z-20 fixed flex-wrap ${
+        isScrolled ? "bg-transparent" : "bg-white"
+      } ${
+        isInMembership ? "bg-white" : "bg-transparent"
+      }`}
     >
       <div className="logo ml-6">
         <a href={rightContentType === "userMenu" ? "/admin" : "/"}>
