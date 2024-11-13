@@ -1,9 +1,12 @@
+import { useRef } from "react";
 import { MembershipCard } from "./MembershipCard";
 import first_phone from "../../../assets/phones/third-section/first-phone.png";
 import second_phone from "../../../assets/phones/third-section/second-phone.png";
 import third_phone from "../../../assets/phones/third-section/third-phone.png";
 
 export const MembershipSection = () => {
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  
   return (
     <div className="relative w-screen">
       <div className="absolute inset-x-0 -top-48 md:flex space-x-4 justify-around w-full hidden">
@@ -23,7 +26,7 @@ export const MembershipSection = () => {
           className="w-1/4 transform -translate-y-32"
         />
       </div>
-      <section className="relative bg-black py-12 px-8 md:px-24 z-10 w-full">
+      <section id="membership-section" ref={sectionRef} className="relative bg-black py-12 px-8 md:px-24 z-10 w-full">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center md:space-x-8 text-white">
           <div className="w-full md:w-1/3 mb-8 md:mb-0 text-center md:text-left">
             <h2 className="text-2xl font-semibold mb-2">
