@@ -7,6 +7,8 @@ export const MembershipCard = ({
   title: string;
   description: string;
 }) => {
+  const whatsappLink = `https://wa.me/59899368097?text=Hola! Quiero comprar la membresía *${title}*. ¿Podrían brindarme más información?`;
+
   return (
     <div className="shadow-lg w-full md:w-1/3 flex flex-col items-center">
       <div className="w-full">
@@ -19,9 +21,13 @@ export const MembershipCard = ({
         <p className="text-gray-600">{description}</p>
       </div>
       <div className="w-full flex justify-end">
-        <button className="bg-yellow-400 text-black font-semibold text-xl py-2 w-3/5 rounded-b-2xl hover:bg-yellow-500">
+        <a
+          href={whatsappLink}
+          target="_blank"
+          className="bg-yellow-400 text-black font-semibold text-xl py-2 w-3/5 text-center rounded-b-2xl hover:bg-yellow-500 hover:cursor-pointer"
+        >
           Comprar
-        </button>
+        </a>
       </div>
     </div>
   );
