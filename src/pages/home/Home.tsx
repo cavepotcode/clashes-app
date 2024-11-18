@@ -6,6 +6,7 @@ import lock from "../../assets/cards_icons/lock.png";
 import network from "../../assets/cards_icons/network.png";
 import paint_brush from "../../assets/cards_icons/paint-brush.png";
 import { MembershipSection } from "../../components/home/third-section/MembershipSection";
+import { FaWhatsapp } from "react-icons/fa";
 
 export const Home = () => {
   return (
@@ -37,6 +38,15 @@ export const Home = () => {
         </section>
       </div>
       <MembershipSection />
+      <a
+        href="https://wa.me/59899368097?text=Hola! Estoy interesado/a en obtener más información sobre los servicios y membresías de Clashes. Gracias!"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition duration-300 z-10"
+        aria-label="Contáctanos por WhatsApp"
+      >
+        <FaWhatsapp size={24} />
+      </a>
     </div>
   );
 };
