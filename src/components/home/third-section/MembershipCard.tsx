@@ -1,3 +1,5 @@
+import { IoIosArrowForward } from "react-icons/io";
+
 export const MembershipCard = ({
   price,
   title,
@@ -7,7 +9,7 @@ export const MembershipCard = ({
   title: string;
   description: string;
 }) => {
-  const whatsappLink = `https://wa.me/59899368097?text=Hola! Quiero comprar la membresía *${title}*. ¿Podrían brindarme más información?`;
+  const whatsappLink = `https://wa.me/59899368097?text=Hola! Quiero consultar por la membresía *${title}*. ¿Podrían brindarme más información?`;
 
   return (
     <div className="shadow-lg w-full md:w-1/3 flex flex-col items-center">
@@ -24,9 +26,10 @@ export const MembershipCard = ({
         <a
           href={whatsappLink}
           target="_blank"
-          className="bg-yellow-400 text-black font-semibold text-xl py-2 w-3/5 text-center rounded-b-2xl hover:bg-yellow-500 hover:cursor-pointer"
+          className="bg-yellow-400 shadow-[0_1px_3px_#ffdd33] text-black font-semibold text-xl py-2 w-3/5 text-center rounded-b-2xl hover:bg-yellow-500 hover:cursor-pointer flex justify-center items-center"
         >
-          Comprar
+          Consultar
+          <IoIosArrowForward className="ml-2" />
         </a>
       </div>
     </div>
