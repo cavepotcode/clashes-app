@@ -36,17 +36,14 @@ export const MembershipSection = () => {
           </div>
           <div className="w-full md:w-2/3 flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-6">
             <MembershipCard
-              price="25"
               title="BUSINESS"
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan."
             />
             <MembershipCard
-              price="35"
               title="PREMIUM"
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan."
             />
             <MembershipCard
-              price="45"
               title="PROFESSIONAL"
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan."
             />
