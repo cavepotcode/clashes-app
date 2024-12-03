@@ -3,16 +3,22 @@ import { HexColorPicker } from "react-colorful";
 import { useForm, useTenantsStore } from "../../hooks";
 import { Tenant, TenantData } from "../../types";
 import Swal from "sweetalert2";
+import FroalaEditor from "react-froala-wysiwyg";
+import "froala-editor/css/froala_style.min.css";
+import "froala-editor/css/froala_editor.pkgd.min.css";
+import "froala-editor/js/plugins.pkgd.min.js";
+import "./FroalaEditor.scss";
 
 const tenantFormFields: TenantData = {
   name: "",
   status: "ACTIVE",
   terms: "",
+  termsHtml: "",
   ranking: false,
   theme: {
     background: "#ffffff",
     card: "#ffffff",
-    'matches-background': "#ffffff",
+    "matches-background": "#ffffff",
     details: "#000000",
     title: "#000000",
     menu: "#ffffff",
@@ -40,7 +46,7 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
   const fieldThemeNames = {
     background: "background",
     card: "card",
-    'matches-background': "matches background",
+    "matches-background": "matches background",
     details: "details",
     title: "title",
     menu: "menu",
@@ -81,6 +87,33 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
     }));
   };
 
+  const config = {
+    placeholderText: "Escribe tus términos aqui",
+    toolbarButtons: [
+      "bold",
+      "italic",
+      "underline",
+      "strikeThrough",
+      "|",
+      "fontFamily",
+      "fontSize",
+      "textColor",
+      "backgroundColor",
+      "|",
+      "formatUL",
+      "formatOL",
+      "emoticons",
+      "|",
+      "align",
+      "undo",
+      "redo",
+      "|",
+      "html",
+    ],
+    quickInsertButtons: ["ul", "ol", "hr"],
+    listAdvancedTypes: true,
+  };
+
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!isFormValid) return;
@@ -90,6 +123,7 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
         name: formState.name,
         status: formState.status,
         terms: formState.terms,
+        termsHtml: formState.termsHtml,
         ranking: formState.ranking,
         theme: formState.theme,
       };
@@ -120,7 +154,7 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
           {tenantToEdit ? "Editar Tenant" : "Crear Nuevo Tenant"}
         </h2>
 
-        <div className="mb-2">
+        <div className="mb-3">
           <label className="block text-sm font-medium mb-1">
             Nombre del Tenant
           </label>
@@ -134,7 +168,7 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
           />
         </div>
 
-        <div className="mb-2">
+        <div className="mb-3">
           <label className="block text-sm font-medium mb-1">Términos</label>
           <input
             name="terms"
@@ -142,6 +176,20 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
             onChange={onInputChange}
             className="w-full p-2 border rounded-md"
             required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-1">
+            Términos (HTML)
+          </label>
+          <FroalaEditor
+            tag="textarea"
+            config={config}
+            model={formState.termsHtml}
+            onModelChange={(model: string) =>
+              setFormState((prevState) => ({ ...prevState, termsHtml: model }))
+            }
           />
         </div>
 
