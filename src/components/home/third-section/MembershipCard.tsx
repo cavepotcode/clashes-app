@@ -23,7 +23,7 @@ export const MembershipCard = ({
         <a
           href={whatsappLink}
           target="_blank"
-          className="bg-yellow-400 shadow-[0_1px_3px_#ffdd33] text-black font-semibold text-xl py-2 w-3/5 text-center rounded-b-2xl hover:bg-yellow-500 hover:cursor-pointer flex justify-center items-center"
+          className="bg-yellow-400 shadow-[0_1px_3px_#ffdd33] text-black font-semibold text-lg py-2 w-3/5 text-center rounded-b-2xl hover:bg-yellow-500 hover:cursor-pointer flex justify-center items-center"
         >
           Consultar
           <IoIosArrowForward className="ml-2" />
