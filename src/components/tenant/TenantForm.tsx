@@ -3,11 +3,11 @@ import { HexColorPicker } from "react-colorful";
 import { useForm, useTenantsStore } from "../../hooks";
 import { Tenant, TenantData } from "../../types";
 import Swal from "sweetalert2";
-import FroalaEditor from "react-froala-wysiwyg";
-import "froala-editor/css/froala_style.min.css";
-import "froala-editor/css/froala_editor.pkgd.min.css";
-import "froala-editor/js/plugins.pkgd.min.js";
-import "./FroalaEditor.scss";
+import { EditorState, ContentState, convertToRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import draftToHtml from "draftjs-to-html";
+import htmlToDraft from "html-to-draftjs";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const tenantFormFields: TenantData = {
   name: "",
@@ -39,6 +39,10 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
     keyof TenantData["theme"] | null
   >(null);
 
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+
   const initialFormState = tenantToEdit || tenantFormFields;
   const { formState, onInputChange, onResetForm, isFormValid, setFormState } =
     useForm(initialFormState);
@@ -67,7 +71,19 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
   }, [errorMessage]);
 
   useEffect(() => {
-    if (tenantToEdit) setFormState(tenantToEdit);
+    if (tenantToEdit?.termsHtml) {
+      const contentBlock = htmlToDraft(tenantToEdit.termsHtml);
+
+      if (contentBlock) {
+        const contentState = ContentState.createFromBlockArray(
+          contentBlock.contentBlocks,
+          contentBlock.entityMap
+        );
+        setEditorState(EditorState.createWithContent(contentState));
+      }
+    } else {
+      setEditorState(EditorState.createEmpty());
+    }
   }, [tenantToEdit]);
 
   const handleColorChange = (color: string, key: keyof TenantData["theme"]) => {
@@ -87,31 +103,16 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
     }));
   };
 
-  const config = {
-    placeholderText: "Escribe tus términos aqui",
-    toolbarButtons: [
-      "bold",
-      "italic",
-      "underline",
-      "strikeThrough",
-      "|",
-      "fontFamily",
-      "fontSize",
-      "textColor",
-      "backgroundColor",
-      "|",
-      "formatUL",
-      "formatOL",
-      "emoticons",
-      "|",
-      "align",
-      "undo",
-      "redo",
-      "|",
-      "html",
-    ],
-    quickInsertButtons: ["ul", "ol", "hr"],
-    listAdvancedTypes: true,
+  const handleEditorStateChange = (state: EditorState) => {
+    setEditorState(state);
+
+    const rawContentState = convertToRaw(state.getCurrentContent());
+    const htmlContent = draftToHtml(rawContentState);
+
+    setFormState((prevState) => ({
+      ...prevState,
+      termsHtml: htmlContent,
+    }));
   };
 
   const onSubmit = async (e: FormEvent) => {
@@ -183,14 +184,34 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
           <label className="block text-sm font-medium mb-1">
             Términos (HTML)
           </label>
-          <FroalaEditor
-            tag="textarea"
-            config={config}
-            model={formState.termsHtml}
-            onModelChange={(model: string) =>
-              setFormState((prevState) => ({ ...prevState, termsHtml: model }))
-            }
-          />
+          <div className="relative border rounded-md px-2">
+            <Editor
+              editorState={editorState}
+              onEditorStateChange={handleEditorStateChange}
+              wrapperClassName="demo-wrapper"
+              editorClassName="demo-editor"
+              toolbarClassName="toolbar-class"
+              toolbar={{
+                options: [
+                  "inline",
+                  "fontSize",
+                  "fontFamily",
+                  "list",
+                  "textAlign",
+                  "colorPicker",
+                  "emoji",
+                ],
+                inline: {
+                  inDropdown: false,
+                  options: ["bold", "italic", "underline", "strikethrough"],
+                },
+                list: {
+                  inDropdown: false,
+                  options: ["unordered", "ordered"],
+                },
+              }}
+            />
+          </div>
         </div>
 
         <div className="mb-4 flex">
