@@ -44,6 +44,9 @@ export const tenantsSlice = createSlice({
       if (index !== -1) {
         state.tenants[index] = updatedTenant;
       }
+      if (state.selectedTenant?._id === updatedTenant._id) {
+        state.selectedTenant = updatedTenant;
+      }
     },
   },
 });
