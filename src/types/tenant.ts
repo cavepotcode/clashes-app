@@ -3,6 +3,7 @@ export interface Tenant {
   name: string;
   status: string;
   terms: string;
+  termsHtml: string;
   ranking: boolean;
   theme: {
     background: string;

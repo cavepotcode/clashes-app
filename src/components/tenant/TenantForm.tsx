@@ -3,16 +3,22 @@ import { HexColorPicker } from "react-colorful";
 import { useForm, useTenantsStore } from "../../hooks";
 import { Tenant, TenantData } from "../../types";
 import Swal from "sweetalert2";
+import { EditorState, ContentState, convertToRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import draftToHtml from "draftjs-to-html";
+import htmlToDraft from "html-to-draftjs";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const tenantFormFields: TenantData = {
   name: "",
   status: "ACTIVE",
   terms: "",
+  termsHtml: "",
   ranking: false,
   theme: {
     background: "#ffffff",
     card: "#ffffff",
-    'matches-background': "#ffffff",
+    "matches-background": "#ffffff",
     details: "#000000",
     title: "#000000",
     menu: "#ffffff",
@@ -33,6 +39,10 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
     keyof TenantData["theme"] | null
   >(null);
 
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+
   const initialFormState = tenantToEdit || tenantFormFields;
   const { formState, onInputChange, onResetForm, isFormValid, setFormState } =
     useForm(initialFormState);
@@ -40,7 +50,7 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
   const fieldThemeNames = {
     background: "background",
     card: "card",
-    'matches-background': "matches background",
+    "matches-background": "matches background",
     details: "details",
     title: "title",
     menu: "menu",
@@ -61,7 +71,19 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
   }, [errorMessage]);
 
   useEffect(() => {
-    if (tenantToEdit) setFormState(tenantToEdit);
+    if (tenantToEdit?.termsHtml) {
+      const contentBlock = htmlToDraft(tenantToEdit.termsHtml);
+
+      if (contentBlock) {
+        const contentState = ContentState.createFromBlockArray(
+          contentBlock.contentBlocks,
+          contentBlock.entityMap
+        );
+        setEditorState(EditorState.createWithContent(contentState));
+      }
+    } else {
+      setEditorState(EditorState.createEmpty());
+    }
   }, [tenantToEdit]);
 
   const handleColorChange = (color: string, key: keyof TenantData["theme"]) => {
@@ -81,6 +103,18 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
     }));
   };
 
+  const handleEditorStateChange = (state: EditorState) => {
+    setEditorState(state);
+
+    const rawContentState = convertToRaw(state.getCurrentContent());
+    const htmlContent = draftToHtml(rawContentState);
+
+    setFormState((prevState) => ({
+      ...prevState,
+      termsHtml: htmlContent,
+    }));
+  };
+
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!isFormValid) return;
@@ -90,6 +124,7 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
         name: formState.name,
         status: formState.status,
         terms: formState.terms,
+        termsHtml: formState.termsHtml,
         ranking: formState.ranking,
         theme: formState.theme,
       };
@@ -120,7 +155,7 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
           {tenantToEdit ? "Editar Tenant" : "Crear Nuevo Tenant"}
         </h2>
 
-        <div className="mb-2">
+        <div className="mb-3">
           <label className="block text-sm font-medium mb-1">
             Nombre del Tenant
           </label>
@@ -134,7 +169,7 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
           />
         </div>
 
-        <div className="mb-2">
+        <div className="mb-3">
           <label className="block text-sm font-medium mb-1">Términos</label>
           <input
             name="terms"
@@ -143,6 +178,40 @@ export const TenantForm: FC<TenantFormProps> = ({ tenantToEdit }) => {
             className="w-full p-2 border rounded-md"
             required
           />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-1">
+            Términos (HTML)
+          </label>
+          <div className="relative border rounded-md px-2">
+            <Editor
+              editorState={editorState}
+              onEditorStateChange={handleEditorStateChange}
+              wrapperClassName="demo-wrapper"
+              editorClassName="demo-editor"
+              toolbarClassName="toolbar-class"
+              toolbar={{
+                options: [
+                  "inline",
+                  "fontSize",
+                  "fontFamily",
+                  "list",
+                  "textAlign",
+                  "colorPicker",
+                  "emoji",
+                ],
+                inline: {
+                  inDropdown: false,
+                  options: ["bold", "italic", "underline", "strikethrough"],
+                },
+                list: {
+                  inDropdown: false,
+                  options: ["unordered", "ordered"],
+                },
+              }}
+            />
+          </div>
         </div>
 
         <div className="mb-4 flex">
