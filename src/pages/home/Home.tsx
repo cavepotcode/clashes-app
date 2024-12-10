@@ -1,4 +1,3 @@
-import { HomeDescription } from "../../components/home/HomeDescription";
 import { Card } from "../../components/home/Card";
 import { PhoneScreens } from "../../components/home/second-section/PhoneScreens";
 import { StartText } from "../../components/home/second-section/StartText";
@@ -7,14 +6,18 @@ import network from "../../assets/cards_icons/network.png";
 import paint_brush from "../../assets/cards_icons/paint-brush.png";
 import { MembershipSection } from "../../components/home/third-section/MembershipSection";
 import { FaWhatsapp } from "react-icons/fa";
+import { HomeText, SportsImages } from "../../components";
 
 export const Home = () => {
   return (
     <div className="relative overflow-hidden">
-      <div className="py-24 md:px-12 px-5 overflow-hidden bg-[#f3f6fa] flex justify-center flex-wrap w-screen">
-        <HomeDescription />
-        <div className="flex justify-around">
-          <div className="home-content flex flex-wrap justify-around gap-7 md:gap-14">
+      <div className="py-24 md:px-0 px-5 overflow-hidden bg-[#f3f6fa] flex justify-center flex-wrap w-screen">
+        <div className="flex w-full justify-between flex-col md:flex-row">
+          <HomeText />
+          <SportsImages />
+        </div>
+        <div className="flex justify-around md:w-full bg-white p-10 md:p-20">
+          <div className="home-content flex flex-wrap w-full justify-between gap-7 md:gap-14">
             <Card
               icon={<img className="paint-brush" src={paint_brush}></img>}
               title="Customizable"
