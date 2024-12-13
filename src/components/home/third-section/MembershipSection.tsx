@@ -8,7 +8,7 @@ export const MembershipSection = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   
   return (
-    <div className="relative w-screen">
+    <div id="membresias" className="relative w-screen">
       <div className="absolute inset-x-0 -top-48 md:flex space-x-4 justify-around w-full hidden">
         <img
           src={first_phone}

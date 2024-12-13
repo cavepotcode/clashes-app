@@ -1,12 +1,50 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
+import { Link } from "react-scroll";
 
-export const HeaderLinks = () => {
+interface HeaderLinksProps {
+  closeMenu?: () => void;
+}
+
+export const HeaderLinks = ({ closeMenu }: HeaderLinksProps) => {
   return (
     <>
-        <NavLink to="#" className="transition-all duration-300 hover:scale-110">Quiénes somos</NavLink>
-        <NavLink to="#" className="transition-all duration-300 hover:scale-110">Qué hacemos</NavLink>
-        <NavLink to="#" className="transition-all duration-300 hover:scale-110">Contacto</NavLink>
-        <NavLink to="/login" className="transition-all duration-300 hover:scale-110">Iniciar sesión</NavLink>
+      <Link
+        to="queHacemos"
+        smooth={true}
+        duration={600}
+        offset={-80}
+        className="transition-all duration-300 hover:scale-110 hover:cursor-pointer"
+        onClick={closeMenu}
+      >
+        Qué hacemos
+      </Link>
+      <Link
+        to="testimonios"
+        smooth={true}
+        duration={800}
+        offset={-80}
+        className="transition-all duration-300 hover:scale-110 hover:cursor-pointer"
+        onClick={closeMenu}
+      >
+        Testimonios
+      </Link>
+      <Link
+        to="membresias"
+        smooth={true}
+        duration={1200}
+        offset={-80}
+        className="transition-all duration-300 hover:scale-110 hover:cursor-pointer"
+        onClick={closeMenu}
+      >
+        Membresías
+      </Link>
+      <NavLink
+        to="/login"
+        className="transition-all duration-300 hover:scale-110"
+        onClick={closeMenu}
+      >
+        Iniciar sesión
+      </NavLink>
     </>
-  )
-}
+  );
+};

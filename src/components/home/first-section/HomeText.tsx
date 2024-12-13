@@ -1,6 +1,20 @@
 import { FC } from "react";
 
 export const HomeText: FC = () => {
+  const scrollToTestimonials = () => {
+    const testimonialsSection = document.querySelector("#testimonios");
+    if (testimonialsSection) {
+      const offset = -80;
+      const elementPosition = testimonialsSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY + offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center items-center text-center gap-5 w-full mb-10">
       <h1 className="md:text-5xl text-2xl font-bold">
@@ -20,7 +34,10 @@ export const HomeText: FC = () => {
         <button className="bg-[#1de6df] text-black font-bold py-3 px-4 rounded-md hover:bg-teal-500">
           ¡Quiero comenzar!
         </button>
-        <button className="bg-black text-white font-semibold py-3 px-4 rounded-md hover:bg-gray-800 mt-4 md:mt-0">
+        <button
+          className="bg-black text-white font-semibold py-3 px-4 rounded-md hover:bg-gray-800 mt-4 md:mt-0"
+          onClick={scrollToTestimonials}
+        >
           Testimonios
         </button>
       </div>

@@ -15,7 +15,7 @@ export const Home = () => {
           <HomeText />
           <SportsImages />
         </div>
-        <div className="flex justify-around md:w-full bg-white p-10 md:p-20">
+        <div  id="queHacemos" className="flex justify-around md:w-full bg-white p-10 md:p-20">
           <div className="home-content flex flex-wrap w-full justify-between gap-7 md:gap-14">
             <Card
               icon={<img className="paint-brush" src={paint_brush}></img>}
@@ -34,7 +34,7 @@ export const Home = () => {
             />
           </div>
         </div>
-        <section className="relative flex flex-col md:flex-row items-center justify-between mt-16 w-full">
+        <section id="testimonios" className="relative flex flex-col md:flex-row items-center justify-between mt-16 w-full">
           <Testimonials />
         </section>
       </div>
