@@ -55,8 +55,10 @@ export const useAuthStore = () => {
       return;
     }
     try {
-      const resp = await clashesApi.get("/user/profile"); //podriamos meter un endpoint de renew
+      const resp = await clashesApi.get("/user/renew");
       const { data } = resp.data;
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("token-init-date", new Date().getTime().toString());
       dispatch(onLogin({ name: data.name, email: data.email, role: data.role }));
     } catch (error) {
       localStorage.clear();
