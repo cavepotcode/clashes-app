@@ -1,32 +1,24 @@
 import { FC } from "react";
 import { TestimonyCard } from "./TestimonyCard";
-import img from "../../../assets/icon.png";
-import img2 from "../../../assets/img-tennis.jpg";
-import img3 from "../../../assets/tennis.jpg";
+import img from "../../../assets/futbol.png";
+import img2 from "../../../assets/tennis.jpg";
 
 export const Testimonials: FC = () => {
   const testimonials = [
     {
       logo: img,
-      text: "Crea un espacio único donde puedas gestionar y mantenerte informado sobre todos los aspectos de tu torneo. Con nuestra aplicación, tendrás acceso a todas las herramientas necesarias para organizar y seguir tu evento de principio a fin.",
-      name: "Tennis Maldonado",
-      role: "Roberto Giant",
+      text: "Con clashes dimos nuestro salto de calidad y profesionalismo al integrar toda la información y estadísticas de nuestros torneos en un mismo lugar. La plataforma es de muy fácil manejo y los participantes tienen la información al instante. Quiero destacar el contacto directo y cercano que tuvimos con los que están atrás de clashes, siempre con la mejor predisposición. Lo recomiendo con mucha confianza.",
+      tenant_name: "Orion Sports",
+      name: "Juan Martin Cousillas",
       rating: 5,
     },
     {
       logo: img2,
-      text: "Crea un espacio único donde puedas gestionar y mantenerte informado sobre todos los aspectos de tu torneo. Con nuestra aplicación, tendrás acceso a todas las herramientas necesarias para organizar y seguir tu evento de principio a fin.",
-      name: "Tennis Maldonado",
-      role: "Roberto Giant",
+      text: "Organicé un torneo de tenis con un amigo, clashes app nos dió la facilidad y seguridad de tener la información al instante, super fácil de usar, interactiva y parametrizable a tus necesidades, dado que en el transcurso del torneo le pedimos al desarrollador algunos anexos y sin problemas cumplió con la demanda, lo recomiendo 100%.",
+      tenant_name: "Marak",
+      name: "Marco Marella",
       rating: 4,
-    },
-    {
-      logo: img3,
-      text: "Crea un espacio único donde puedas gestionar y mantenerte informado sobre todos los aspectos de tu torneo. Con nuestra aplicación, tendrás acceso a todas las herramientas necesarias para organizar y seguir tu evento de principio a fin.",
-      name: "Tennis Maldonado",
-      role: "Roberto Giant",
-      rating: 3,
-    },
+    }
   ];
 
   return (
@@ -41,7 +33,7 @@ export const Testimonials: FC = () => {
         </p>
       </div>
 
-      <div className="md:w-2/3 flex md:flex-row flex-col md:gap-6 gap-28 mt-8 md:mt-0">
+      <div className="md:w-2/3 flex md:flex-row flex-col md:gap-6 gap-28 mt-8 md:mt-0 justify-center">
         {testimonials.map((text, index) => (
           <TestimonyCard key={index} {...text} />
         ))}

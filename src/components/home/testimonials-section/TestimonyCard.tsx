@@ -5,16 +5,16 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 interface TestimonyCardProps {
   logo: string;
   text: string;
+  tenant_name: string;
   name: string;
-  role: string;
   rating: number;
 }
 
 export const TestimonyCard: FC<TestimonyCardProps> = ({
   logo,
   text,
+  tenant_name,
   name,
-  role,
   rating,
 }) => {
   return (
@@ -31,8 +31,8 @@ export const TestimonyCard: FC<TestimonyCardProps> = ({
         </blockquote>
 
         <div className="mt-4 flex flex-col items-end">
-          <p className="font-bold text-gray-800">{name}</p>
-          <p className="text-sm text-gray-500">-{role}</p>
+          <p className="font-bold text-gray-800">{tenant_name}</p>
+          <p className="text-sm text-gray-500">-{name}</p>
         </div>
 
         <div className="flex mt-6 space-x-1 text-[#3abdc3] justify-center">
