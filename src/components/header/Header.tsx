@@ -68,8 +68,8 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
     const membershipSection = document.querySelector("#membership-section");
     if (!membershipSection) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsInMembership(entry.isIntersecting),
+    const observer = new IntersectionObserver(([entry]) =>
+      setIsInMembership(entry.isIntersecting)
     );
     observer.observe(membershipSection);
     return () => observer.disconnect();
@@ -113,7 +113,14 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
 
   const responsiveMenu = () => {
     if (rightContentType === "navigation") {
-      return <HeaderLinks />;
+      return (
+        <HeaderLinks
+          closeMenu={() => {
+            setIsOpen(false);
+            setBlur(false);
+          }}
+        />
+      );
     }
 
     if (rightContentType === "userMenu") {
@@ -144,12 +151,10 @@ export const Header = ({ setBlur, rightContentType }: HeaderProps) => {
   }, []);
 
   return (
-    <header 
+    <header
       className={`header backdrop-blur-md mx-auto items-center justify-between z-20 fixed flex-wrap ${
         isScrolled ? "bg-transparent" : "bg-white"
-      } ${
-        isInMembership ? "bg-white" : "bg-transparent"
-      }`}
+      } ${isInMembership ? "bg-white" : "bg-transparent"}`}
     >
       <div className="logo ml-6">
         <a href={rightContentType === "userMenu" ? "/admin" : "/"}>
